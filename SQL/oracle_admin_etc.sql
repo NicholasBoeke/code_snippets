@@ -56,7 +56,7 @@ select s.sid, s.serial#, p.spid, s.username, s.schemaname, s.program, s.terminal
   join v$process p
     on s.paddr = p.addr
  where s.type != 'BACKGROUND'
- and s.username = 'HSTDW003'
+ and s.username = ''    -- username
 ;
 
 
@@ -69,19 +69,20 @@ order by view_name;
 
 -- =========== work with database links ===========
 -- create the link (need create db link capability)
-create database link dweprd                                     -- private link will supercede public link
-connect to hstdw003 identified by "pwd here in double quotes"   -- use hstdw003 on remote DW
-using 'oracle-edw-prd.oit.umn.edu:1521/dweprd.oit';             -- connection string to DW
+create database link [DBLINK]                                 -- private link will supercede public link
+connect to [USER] identified by "pwd here in double quotes"     -- use USER on remote DW
+using '[host]:[port]/[service]';                                -- connection string to DW
+
 
 -- update database link if it alreay exists
-alter database link dweprd
-connect to hstdw003 identified by "new pwd here in  double quotes";   -- new password
+alter database link [DBLINK]
+connect to [USER] identified by "new pwd here in  double quotes";   -- new password
 
 -- verify private link was created & that THIS schema owns it
 select * from all_db_links;
 
 -- drop private link if needed 
-drop database link dweprd;
+drop database link [DBLINK];
 
 -- =======================================================
 
