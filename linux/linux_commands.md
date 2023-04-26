@@ -1,12 +1,14 @@
 
-# echo some environment variables
-echo $SHELL
-echo $EDITOR
+# show environment variables
+`echo $SHELL`
+
+`echo $EDITOR`
 
 
 # which python am I using?
-which python
-which python3
+`which python` - for location of python 2
+
+`which python3` - for location of python 3
 
 
 # memory usage on linux
